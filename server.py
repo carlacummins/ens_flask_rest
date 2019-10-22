@@ -11,19 +11,26 @@ api = Api(app)
 
 
 class Gene(Resource):
-    def get(self, gene_name):
+    def get(self, gene_name, species_name=None):
         conn = db_connect.connect() # connect to database
-        sql = "SELECT display_label, species, stable_id FROM gene_autocomplete WHERE display_label LIKE :gene_name"
-        query = conn.execute(text(sql), gene_name = gene_name + '%') # This line performs query and returns json result
-        return {'genes': [dict(zip((query.keys()) ,i)) for i in query.cursor]}
+                
+        sql = "SELECT display_label, species, stable_id FROM gene_autocomplete WHERE display_label LIKE :gene"
+        if species_name:
+            sql += " AND species = '%s'" % species_name
+        query = conn.execute(text(sql), gene = gene_name + '%') # This line performs query and returns json result
+        
+        keys = ['name', 'species', 'id'];
+        return {genes': [dict(zip(keys ,i)) for i in query.cursor]}
 
 class Hello(Resource):
-    def get(self, name):
-        return {'hello': name}
+    def get(self, name, name2=None):
+        name_list = [name]
+        if name2:
+            name_list.append(name2)
+        return {'hello': name_list}
 
-# api.add_resource(HelloWorld, '/')
-api.add_resource(Hello, '/hello/<name>')
-api.add_resource(Gene, '/gene/<gene_name>')
+api.add_resource(Hello, '/hello/<name>', '/hello/<name>/<name2>')
+api.add_resource(Gene, '/gene/<gene_name>', '/gene/<gene_name>/<species_name>')
 
 @app.route('/')
 def index():
