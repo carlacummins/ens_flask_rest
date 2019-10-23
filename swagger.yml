@@ -1,0 +1,42 @@
+swagger: '2.0'
+info:
+  title: Ensembl Flask Rest API
+  description: This is a basic REST API for fetching genes from Ensembl. It is based on Python and Flask.
+  version: "1.0.0"
+
+paths:
+    /gene/{gene_name}:
+        get:
+          summary: Returns a list of genes matching gene_name.
+          description: Allows fuzzy matching of the gene - e.g. brca will match brca1, brca2, BRCA2, etc
+          parameters:
+            - name: gene_name
+              in: path
+              description: name of gene to find
+              required: true
+              type: string
+          responses:
+            '200':    # status code
+              description: A JSON array of gene ids, names and species
+            '400':
+                description: gene_name is too short - gene_name must be a minimal of 3 letters
+    /gene/{gene_name}/{species_name}:
+        get:
+          summary: Returns a list of genes from the given species which match gene_name.
+          description: Allows fuzzy matching of the gene - e.g. brca will match brca1, brca2, BRCA2, etc
+          parameters:
+            - name: gene_name
+              in: path
+              description: name of gene to find
+              required: true
+              type: string
+            - name: species_name
+              in: path
+              description: name of species to filter genes on
+              required: true
+              type: string
+          responses:
+            '200':    # status code
+              description: A JSON array of gene ids, names and species
+            '400':
+                description: gene_name is too short - gene_name must be a minimal of 3 letters

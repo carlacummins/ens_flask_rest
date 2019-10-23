@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, redirect
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
+from flask_swagger_ui import get_swaggerui_blueprint
 from json import dumps
 
 db_connect = create_engine('mysql://anonymous@ensembldb.ensembl.org:3306/ensembl_website_97')
@@ -42,10 +43,22 @@ class Gene(Resource):
 # point endpoints to relevant class
 api.add_resource(Gene, '/gene/<gene_name>', '/gene/<gene_name>/<species_name>')
 
+# redirect non-endpoint URLs to docs
 @app.route('/')
 def index():
-    url = 'http://giphygifs.s3.amazonaws.com/media/LSNqpYqGRqwrS/giphy.gif';
-    return render_template('index.html', url=url)
+    return redirect('/api/docs');
+@app.route('/gene/')
+def gene_page():
+    return redirect('/api/docs');
+
+# set up SwaggerUI for documentation
+swagger_url = '/api/docs'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    swagger_url,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    'swagger.yml',
+    config={'app_name': "Ensembl Flast REST API"}
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=swagger_url)
 
 if __name__ == '__main__':
      app.run(host="0.0.0.0", debug=True)
