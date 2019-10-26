@@ -9,8 +9,8 @@ From inside your vagrant VM (as detailed [here](https://github.com/joanmarcriera
 $ git clone https://github.com/carlacummins/ens_flask_rest.git
 $ cd ens_flask_rest
 
-$ docker build -t ens_flask_rest
-$ docker run -p 80:5000 ens_flask_rest
+$ docker build -t ens_flask_rest .
+$ docker run -p 80:5000 --name py_rest_ens ens_flask_rest
 ```
 Port 5000 is exposed and mapped to vagrant's port 80. By default, vagrant's port 80 is mapped to `localhost:8080`, but see your `Vagrantfile` for details.
 
