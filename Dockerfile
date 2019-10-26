@@ -17,8 +17,12 @@ RUN pip install --no-cache-dir -r /usr/src/requirements.txt
 
 # copy files required for the app to run
 COPY server.py /usr/src/
+COPY test_server.py /usr/src/
 COPY swagger.yml /usr/local/lib/python2.7/dist-packages/flask_swagger_ui/dist/
 COPY templates/index.html /usr/src/templates/
+
+# run the test suite
+CMD ["unit2", "discover", "-v", "-s", "/usr/src/"]
 
 # tell the port number the container should expose
 EXPOSE 5000
