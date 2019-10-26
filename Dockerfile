@@ -2,10 +2,10 @@
 FROM debian:jessie-slim
 
 # Install python and pip
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install -y python python-pip
-RUN apt-get install -y python-dev libmysqlclient-dev
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y python python-pip && \
+    apt-get install -y python-dev libmysqlclient-dev
 RUN apt-get clean all
 
 # upgrade pip
