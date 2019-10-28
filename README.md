@@ -16,7 +16,13 @@ Port 5000 is exposed and mapped to vagrant's port 80. By default, vagrant's port
 
 ## Endpoint(s)
 
-This API only has a single endpoint: `/gene/`. Full [Swagger](https://swagger.io/) documentation is available at `localhost:8080/api/docs`
+This API only has a single endpoint: `/gene/`, which can be called in 2 ways: with just a gene name or with a gene name and a species name. 
+
+#### Examples
+- http://localhost:8080/gene/abcc13
+- http://localhost:8080/gene/brca2/homo_sapiens
+
+Full [Swagger](https://swagger.io/) documentation is available at http://localhost:8080/api/docs
 
 ## Unit Tests
 
