@@ -21,7 +21,7 @@ COPY test_server.py /usr/src/
 COPY swagger.yml /usr/local/lib/python2.7/dist-packages/flask_swagger_ui/dist/
 
 # run the test suite
-CMD ["unit2", "discover", "-v", "-s", "/usr/src/"]
+RUN ["unit2", "discover", "-v", "-s", "/usr/src/"]
 
 # tell the port number the container should expose
 EXPOSE 5000

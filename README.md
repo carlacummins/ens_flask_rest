@@ -20,7 +20,7 @@ This API only has a single endpoint: `/gene/`. Full [Swagger](https://swagger.io
 
 ## Unit Tests
 
-A small test suite has been included with this application. It is implemented with [unittest2](https://pypi.org/project/unittest2/). Docker runs this on startup, but if you wish to run the tests manually, you can use the following commands:
+A small test suite has been included with this application. It is implemented with [unittest2](https://pypi.org/project/unittest2/). Docker automatically runs these upon building, but if you wish to run the tests manually, you can use the following commands (after `docker run`):
 ```
 # open a shell inside the docker container
 $ docker exec -it py_rest_ens bash
