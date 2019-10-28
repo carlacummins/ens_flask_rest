@@ -55,3 +55,28 @@ class FlaskRESTAPITests(unittest2.TestCase):
         self.assertEqual(data['genes'][0]['id'], 'ENSG00000139618')
         self.assertEqual(data['genes'][0]['species'], 'homo_sapiens')
         
+    # error code testing
+    def test_short_name_return_code(self):
+        result = self.app.get('/gene/br') 
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 400)
+        
+    def test_post_return_code(self):
+        result = self.app.post('/gene/brca2') 
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 405)
+        
+    def test_put_return_code(self):
+        result = self.app.put('/gene/brca2') 
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 405)
+        
+    def test_patch_return_code(self):
+        result = self.app.patch('/gene/brca2') 
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 405)
+        
